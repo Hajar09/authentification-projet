@@ -1,0 +1,22 @@
+extends layout
+block content
+    h3 Sign in
+    form(action="/users/new_user", method="post")
+        div
+            h5 Name
+            input(type="text", name="name", placeholder="inscrivez votre nom")
+        div
+            h5 Email
+            input(type="email", name="email", placeholder="inscrivez votre email")
+        div 
+            h5 Username
+            input(type="text", name="username", placeholder="inscrivez votre username")
+        div
+            h5 Password
+            input(type="password", name="password", placeholder="inscrivez votre password")
+        div 
+            h5 Confirmation password
+            input(type="password", name="confirm_password", placeholder="confirmer votre nom")
+        div
+            h5 Valider
+            input(type="submit", value="send")

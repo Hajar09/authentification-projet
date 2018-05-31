@@ -1,0 +1,8 @@
+extends layout
+block content
+    h3 All users
+    each value in users
+        ul
+            li name: #{value.name}
+            li email: #{value.email}
+            li username: #{value.username}
