@@ -1,3 +1,7 @@
+import bCrypt from "bcrypt"
+
 const createHash = (password) => {
-    bCrypt.hashSync(password, bCrypt.genSaltSync(10), null)
+    return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null)
 }
+
+export { createHash }

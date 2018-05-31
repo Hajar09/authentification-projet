@@ -11,7 +11,7 @@ import { userRouter } from './routes/routes.js'
 
 import path from "path"
 import passport from "passport"
-import bcrypt from "bcrypt"
+import bCrypt from "bcrypt"
 
 
 //initialise passport et serializing et deserializing User Instances

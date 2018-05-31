@@ -33,6 +33,6 @@ passport.use('login', new LocalStrategy({
     }));
 
     const isValidPassword = (user, password) => {
-        bCrypt.compareSync(password, user.password)
+        return bCrypt.compareSync(password, user.password)
     }
 

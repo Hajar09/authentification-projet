@@ -204,9 +204,11 @@ module.exports = require("path");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_user__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__passport_crypt_hash__ = __webpack_require__(11);
 
 
 const userRouter = __WEBPACK_IMPORTED_MODULE_0_express___default.a.Router();
+
 
 //va me permettre d'accéder sur cette route à mon html(qui est sur pug)
 userRouter.get('/new_user', (req, res) => {
@@ -220,13 +222,26 @@ userRouter.get('/user_login', (req, res) => {
 
 //création et sauvegarde dans ma base d'un user via mon Schema
 userRouter.post('/new_user', (req, res) => {
+
     let newUser = new __WEBPACK_IMPORTED_MODULE_1__models_user__["a" /* User */](req.body); //ce qu'on envoie depuis notre formulaire
+
+    newUser.password = Object(__WEBPACK_IMPORTED_MODULE_2__passport_crypt_hash__["a" /* createHash */])(req.body.password);
+
+    //save user
     newUser.save((err, user) => {
         if (err) res.send(err);
         //res.json(user)
         res.render('display_user', { user }); //template pour transmettre les infos de user
     });
 });
+
+//connextion d'un utilisateur
+/*userRouter.post('//user_login', (req.res) => {
+    User.find({}, (err,users) => {
+        if(err) res.send(err)
+        res.render('')
+    })
+})*/
 
 //vérifier à quoi ça sert: il affiche mes users qui ont été sauvegardés dans ma base de données 
 userRouter.get('/', (req, res) => {
@@ -264,6 +279,22 @@ const userSchema = new Schema({
 });
 
 const User = __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('User', userSchema);
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createHash; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_bcrypt__);
+
+
+const createHash = password => {
+    return __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.hashSync(password, __WEBPACK_IMPORTED_MODULE_0_bcrypt___default.a.genSaltSync(10), null);
+};
+
 
 
 /***/ })

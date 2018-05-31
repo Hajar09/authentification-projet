@@ -1,6 +1,8 @@
 import express from 'express'
 import { User } from '../models/user'
 const userRouter = express.Router()
+import { createHash } from '../passport/crypt_hash'
+
 
 //va me permettre d'accéder sur cette route à mon html(qui est sur pug)
 userRouter.get('/new_user', (req,res) => {
@@ -16,22 +18,25 @@ userRouter.get('/user_login', (req, res) => {
 userRouter.post('/new_user', (req, res) => {
     
     let newUser = new User(req.body)//ce qu'on envoie depuis notre formulaire
-
+    
+    newUser.password = createHash(req.body.password)
+    
+    //save user
     newUser.save((err, user) => {
         if(err) res.send(err)
         //res.json(user)
-        res.render('display_user', { user })//template pour transmettre les infos de user
+         res.render('display_user', { user })//template pour transmettre les infos de user
 
     })
 })
 
 //connextion d'un utilisateur
-userRouter.post('//user_login', (req.res) => {
+/*userRouter.post('//user_login', (req.res) => {
     User.find({}, (err,users) => {
         if(err) res.send(err)
         res.render('')
     })
-})
+})*/
 
 //vérifier à quoi ça sert: il affiche mes users qui ont été sauvegardés dans ma base de données 
 userRouter.get('/', (req, res) => {
