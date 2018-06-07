@@ -5,17 +5,21 @@ import volleyball from "volleyball"
 const app = express();
 
 
+
 import mongoose from "mongoose"
 const { SERVER_PORT, DBUrl } = process.env;
 import { userRouter } from './routes/routes.js'
 
 import path from "path"
 import passport from "passport"
+const LocalStrategy = require('passport-local').Strategy;
 import bCrypt from "bcrypt"
 
 
-//initialise passport et serializing et deserializing User Instances
+//initialise passport et serializing et deserializing User Instances; plus les sessions
 app.use(passport.initialize());
+app.use(passport.session());
+
 passport.serializeUser((user, done) => {
     done(null, user._id)
 })

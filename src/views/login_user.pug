@@ -1,13 +1,17 @@
-extends layout_login
+extends layout
+block title 
+    title Se connecter
+block h1
+    h1 Se connecter
 block content 
     h3 Login
     form(action="/users/user_login", method="post")
-    div
-        h5 Username
-        input(type="text", name="username", placeholder="entrez votre username")
-    div
-        h5 Password
-        input(type="text", name="password", placeholder="entrez votre password")
-    div 
-        h5 Submit
-        input(type="submit", value="login")
+        div
+            h5 Username
+            input(type="text", name="username", placeholder="entrez votre username")
+        div
+            h5 Password
+            input(type="text", name="password", placeholder="entrez votre password")
+        div 
+            h5 Submit
+            input(type="submit", value="login")

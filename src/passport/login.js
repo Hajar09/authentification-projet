@@ -1,7 +1,5 @@
-
-
 // passport/login.js
-passport.use('login', new LocalStrategy({
+/*passport.use('login', new LocalStrategy({
         passReqToCallback: true
     },
     function (req, username, password, done) {
@@ -30,9 +28,6 @@ passport.use('login', new LocalStrategy({
                 return done(null, user);
             }
         );
-    }));
+    }));*/
 
-    const isValidPassword = (user, password) => {
-        return bCrypt.compareSync(password, user.password)
-    }
-
+   

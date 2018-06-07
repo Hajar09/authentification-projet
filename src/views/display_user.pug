@@ -1,4 +1,8 @@
 extends layout
+block title 
+    title Utilisateur
+block h1
+    h1 Username #{user.username}
 block content
     p New user created
     h3 name: #{user.name} <!-- # (interpolation) permet d'intégrer du code dans mon template-->

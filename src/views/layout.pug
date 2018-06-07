@@ -1,9 +1,19 @@
 doctype html
 html
-    head
-        title Authentification APP
+    head 
+        block title 
         link(href="/css/")
 
     body
-        h1 Formulaire
+        a(href="/users/new_user") Home
+        |
+        |
+        a(href="/users") Users
+        |
+        |
+        a(href="/users/user_login") Login
+        |
+        |
+        a(href="/users/log_out") Logout
+        block h1 
         block content
