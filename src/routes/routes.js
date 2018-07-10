@@ -85,7 +85,11 @@ userRouter.post('/user_login', passport.authenticate('login', {
     failureFlash: false 
 }))
 
-
+//logout route 
+userRouter.get('/log_out', function (req, res) {
+    req.logout();
+    res.redirect('/users/user_login');
+});
 
 //vérifier à quoi ça sert: il affiche mes users qui ont été sauvegardés dans ma base de données 
 userRouter.get('/', (req, res) => {

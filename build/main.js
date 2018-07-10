@@ -62,7 +62,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -97,32 +97,42 @@ module.exports = require("passport-local");
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-module.exports = __webpack_require__(6);
-
+module.exports = require("connect-flash");
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(7);
+
+
+/***/ }),
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_dotenv_config__ = __webpack_require__(7);
+/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_dotenv_config__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_dotenv_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_dotenv_config__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_volleyball__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_volleyball__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_volleyball___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_volleyball__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mongoose__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mongoose___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_mongoose__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes_routes_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes_routes_js__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_path__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_path__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_passport__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_passport__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_bcrypt__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_bcrypt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_express_session__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_express_session___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_express_session__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_connect_flash__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_connect_flash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_connect_flash__);
 //on importe ses dépendances 
 
 
@@ -138,9 +148,13 @@ const { SERVER_PORT, DBUrl } = process.env;
 const LocalStrategy = __webpack_require__(4).Strategy;
 
 
+
+
 //initialise passport et serializing et deserializing User Instances; plus les sessions
 app.use(__WEBPACK_IMPORTED_MODULE_6_passport___default.a.initialize());
 app.use(__WEBPACK_IMPORTED_MODULE_6_passport___default.a.session());
+app.use(__WEBPACK_IMPORTED_MODULE_8_express_session___default()({ secret: 'mySecretKey' }));
+app.use(__WEBPACK_IMPORTED_MODULE_9_connect_flash___default()());
 
 __WEBPACK_IMPORTED_MODULE_6_passport___default.a.serializeUser((user, done) => {
     done(null, user._id);
@@ -172,10 +186,10 @@ app.use(__WEBPACK_IMPORTED_MODULE_1_express___default.a.json());
 app.use(__WEBPACK_IMPORTED_MODULE_1_express___default.a.urlencoded({ extended: true }));
 app.use(__WEBPACK_IMPORTED_MODULE_2_volleyball___default.a);
 
-//ma racine
+//ma racine -  /!\ attention /!\ il faut rediriger avant de générer du contenu sinon on a l'erreur 'Cannot set headers after they are sent to the client'
 app.get('/', (req, res) => {
-    res.send("welcome on board!");
     res.redirect("/users");
+    //res.send("welcome on board!")    
 });
 
 //ma route dans laquelle est accessible ma route /new_user
@@ -187,19 +201,19 @@ app.listen(SERVER_PORT, () => {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "src"))
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = require("dotenv/config");
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = require("volleyball");
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -208,11 +222,11 @@ module.exports = require("volleyball");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_passport___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_passport__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_user__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__passport_crypt_hash__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_user__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__passport_crypt_hash__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_bcrypt__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_bcrypt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_connect_flash__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_connect_flash__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_connect_flash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_connect_flash__);
 
 
@@ -292,6 +306,12 @@ userRouter.post('/user_login', __WEBPACK_IMPORTED_MODULE_1_passport___default.a.
     failureFlash: false
 }));
 
+//logout route 
+userRouter.get('/log_out', function (req, res) {
+    req.logout();
+    res.redirect('/users/user_login');
+});
+
 //vérifier à quoi ça sert: il affiche mes users qui ont été sauvegardés dans ma base de données 
 userRouter.get('/', (req, res) => {
     __WEBPACK_IMPORTED_MODULE_2__models_user__["a" /* User */].find({}, (err, users) => {
@@ -308,7 +328,7 @@ userRouter.get('/', (req, res) => {
 //password et bcrypt
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -330,7 +350,7 @@ const User = __WEBPACK_IMPORTED_MODULE_0_mongoose___default.a.model('User', user
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -346,16 +366,16 @@ const createHash = password => {
 
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-module.exports = require("connect-flash");
-
-/***/ }),
 /* 13 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-session");
 
 /***/ })
 /******/ ]);

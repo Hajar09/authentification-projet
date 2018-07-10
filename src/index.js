@@ -14,11 +14,15 @@ import path from "path"
 import passport from "passport"
 const LocalStrategy = require('passport-local').Strategy;
 import bCrypt from "bcrypt"
+import session from "express-session"
+import flash from "connect-flash"
 
 
 //initialise passport et serializing et deserializing User Instances; plus les sessions
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(session({secret: 'mySecretKey'}));
+app.use(flash());
 
 passport.serializeUser((user, done) => {
     done(null, user._id)
@@ -52,10 +56,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(volleyball);
 
-//ma racine
+//ma racine -  /!\ attention /!\ il faut rediriger avant de générer du contenu sinon on a l'erreur 'Cannot set headers after they are sent to the client'
 app.get('/', (req, res) => {
-    res.send("welcome on board!")
     res.redirect("/users")
+    //res.send("welcome on board!")    
 })
 
 //ma route dans laquelle est accessible ma route /new_user
